@@ -197,6 +197,7 @@ js/
   forms.js              Editores compartidos (hojas modales)
   backup.js             Exportar e importar copia de seguridad
   format.js             Fechas, números y textos en español
+  validation.js         Validación de nombre, correo y contraseña
   ui.js                 Iconos, marca, avisos, diálogos y estados
   setup.js              Pantalla de configuración pendiente
   landing.js            Detalles de la portada
@@ -288,8 +289,12 @@ validaciones del registro, onboarding entero, inicio, notas y cálculo de medias
 hábitos y rachas, horario en día y semana, diario, libros, cuentas atrás,
 temporizador (comprobando que el tiempo avanza, se pausa y sobrevive al cambio
 de pantalla), exportación e importación, cierre de sesión, vuelta a entrar,
-recuperación de contraseña, diseño en móvil, tablet y escritorio, nombres
-accesibles y ausencia de errores en consola.
+recuperación de contraseña completa (abriendo el enlace, cambiándola y
+comprobando que la antigua deja de valer), diseño en móvil, tablet y
+escritorio, nombres accesibles y ausencia de errores en consola.
+
+`tests/rls.sql` necesita una base de datos recién creada, porque inserta
+usuarios de prueba con UUID fijos.
 
 ---
 

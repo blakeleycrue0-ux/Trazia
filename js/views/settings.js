@@ -8,6 +8,7 @@ import {
 import { formatScore, parseScore, initials } from '../format.js';
 import * as store from '../store.js';
 import { getSupabase, translateAuthError, signOut } from '../supabase.js';
+import { validatePassword, validateMatch } from '../validation.js';
 import { openSubjectSheet } from '../forms.js';
 import { exportData, openImportSheet, importBackup, TABLE_LABELS } from '../backup.js';
 import { GRADE_LEVELS, TRACKS } from './onboarding.js';
@@ -443,9 +444,8 @@ async function openPasswordSheet() {
         const repeat = qs('#repeat', dialog).value;
         const errors = {
           current: current ? null : 'Escribe tu contraseña actual.',
-          next: next.length < 8 ? 'Usa al menos 8 caracteres.'
-            : (!/[a-zA-Z]/.test(next) || !/\d/.test(next) ? 'Combina letras y números.' : null),
-          repeat: next === repeat ? null : 'Las dos contraseñas no coinciden.',
+          next: validatePassword(next),
+          repeat: validateMatch(next, repeat),
         };
         let invalid = false;
         for (const [id, message] of Object.entries(errors)) {

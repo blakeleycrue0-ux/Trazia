@@ -447,6 +447,56 @@ try {
   await page2.waitForSelector('.auth-card h1');
   check('el enlace de recuperación sin token se rechaza',
     (await page2.locator('.auth-card h1').innerText()).includes('no es válido'));
+
+  // Recogemos el enlace que Supabase habría enviado por correo y lo abrimos.
+  const link = await (await fetch(`${BASE}/__test/recovery-link?email=${encodeURIComponent(email)}`)).json();
+  const hash = `#access_token=${link.access_token}&refresh_token=${link.refresh_token}`
+    + '&expires_in=3600&token_type=bearer&type=recovery';
+  // Salimos de reset.html antes: cambiar solo el hash no recarga la página.
+  await page2.goto('about:blank');
+  await page2.goto(`${BASE}/reset.html${hash}`, { waitUntil: 'domcontentloaded' });
+  await page2.waitForSelector('#form-reset', { timeout: 15000 });
+  check('el enlace del correo abre el formulario de contraseña nueva',
+    (await page2.locator('.auth-card h1').innerText()).includes('Nueva contraseña'));
+
+  await page2.fill('#password', 'corta');
+  await page2.fill('#password2', 'corta');
+  await page2.click('#form-reset button[type="submit"]');
+  check('rechaza una contraseña nueva demasiado corta',
+    (await page2.locator('#password-error').innerText()).includes('8 caracteres'));
+
+  const newPassword = 'TraziaNueva2026';
+  await page2.fill('#password', newPassword);
+  await page2.fill('#password2', 'otra-distinta9');
+  await page2.click('#form-reset button[type="submit"]');
+  check('rechaza dos contraseñas que no coinciden',
+    (await page2.locator('#password2-error').innerText()).includes('no coinciden'));
+
+  await page2.fill('#password2', newPassword);
+  await page2.click('#form-reset button[type="submit"]');
+  await page2.waitForSelector('.auth-card h1:has-text("Contraseña actualizada")', { timeout: 15000 });
+  check('la contraseña se cambia desde el enlace', true);
+
+  // Tras cambiar la contraseña queda una sesión abierta, así que la prueba de
+  // acceso se hace desde un contexto limpio.
+  const fresh = await browser.newContext({ locale: 'es-ES' });
+  const after = await fresh.newPage();
+  await after.goto(`${BASE}/auth.html?modo=login`, { waitUntil: 'domcontentloaded' });
+  await after.waitForSelector('#form-login');
+  await after.fill('#form-login #email', email);
+  await after.fill('#form-login #password', password);
+  await after.click('#form-login button[type="submit"]');
+  await after.waitForSelector('.notice--error', { timeout: 15000 });
+  check('la contraseña antigua deja de funcionar',
+    (await after.locator('.notice--error').innerText()).includes('no son correctos'));
+
+  await after.fill('#form-login #password', newPassword);
+  await after.click('#form-login button[type="submit"]');
+  await after.waitForSelector('.greeting', { timeout: 20000 });
+  check('se entra con la contraseña nueva y los datos siguen ahí',
+    (await after.locator('.wrap.view').innerText()).includes('Examen de Física'));
+  await after.close();
+  await fresh.close();
   await page2.close();
   await anon.close();
 

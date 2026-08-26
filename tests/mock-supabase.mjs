@@ -25,6 +25,11 @@ const AUTOCONFIRM = process.env.MOCK_AUTOCONFIRM !== 'false';
 const pool = new pg.Pool({ connectionString: DATABASE_URL, max: 8 });
 const sessions = new Map();   // access_token -> userId
 const refreshTokens = new Map();
+/**
+ * Enlaces de recuperacion "enviados". Aqui no hay correo, asi que se guardan
+ * para que las pruebas puedan recogerlos en /__test/recovery-link.
+ */
+const recoveryLinks = new Map();
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
@@ -235,8 +240,19 @@ async function handleAuth(req, res, url) {
     return undefined;
   }
 
-  if ((path === '/recover' || path === '/resend' || path === '/otp') && req.method === 'POST') {
-    // En pruebas no se envian correos; respondemos como Supabase.
+  if (path === '/recover' && req.method === 'POST') {
+    const email = String(body.email || '').toLowerCase().trim();
+    const { rows } = await pool.query('select * from auth.users where email = $1', [email]);
+    if (rows.length) {
+      // Supabase enviaria un correo con un enlace que abre una sesion de
+      // recuperacion. Aqui creamos la sesion y la dejamos disponible para las
+      // pruebas; la respuesta es la misma exista o no la cuenta.
+      recoveryLinks.set(email, createSession(userPayload(rows[0], true)));
+    }
+    return send(res, 200, {});
+  }
+
+  if ((path === '/resend' || path === '/otp') && req.method === 'POST') {
     return send(res, 200, {});
   }
 
@@ -429,6 +445,15 @@ async function serveStatic(req, res, url) {
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`);
   try {
+    if (url.pathname === '/__test/recovery-link') {
+      // Solo para las pruebas: devuelve el enlace de recuperacion "enviado".
+      const session = recoveryLinks.get(String(url.searchParams.get('email') || '').toLowerCase());
+      if (!session) return send(res, 404, { message: 'sin enlace' });
+      return send(res, 200, {
+        access_token: session.access_token,
+        refresh_token: session.refresh_token,
+      });
+    }
     if (url.pathname.startsWith('/auth/v1')) return await handleAuth(req, res, url);
     if (url.pathname.startsWith('/rest/v1')) return await handleRest(req, res, url);
     return await serveStatic(req, res, url);
