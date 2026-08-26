@@ -12,16 +12,17 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-const NAVY = [23, 37, 84];
-const LAVENDER = [169, 155, 232];
-const BLUE = [143, 164, 240];
-const CORAL = [244, 127, 104];
+/* Colores tomados del logo original, sin retocar. */
+const NAVY = [3, 8, 38];        // #030826, fondo del icono
+const BLUE = [87, 76, 239];     // #574CEF, barra principal
+const LAVENDER = [148, 115, 232]; // #9473E8, barra secundaria
+const CORAL = [254, 116, 68];   // #FE7444, punto
 
 /** Geometria en el sistema de coordenadas 0..48 del simbolo. */
 const SHAPES = [
-  { type: 'segment', a: [12, 28.5], b: [29, 11.5], width: 9, color: BLUE },
-  { type: 'segment', a: [21, 34.5], b: [30, 25.5], width: 9, color: LAVENDER },
-  { type: 'circle', c: [34.5, 35], r: 4.2, color: CORAL },
+  { type: 'segment', a: [10.7, 33.2], b: [26.8, 14.7], width: 7.1, color: BLUE },
+  { type: 'segment', a: [24.85, 33.3], b: [34.2, 22.6], width: 7.1, color: LAVENDER },
+  { type: 'circle', c: [37.5, 33.5], r: 3.4, color: CORAL },
 ];
 
 function distanceToSegment(px, py, [ax, ay], [bx, by]) {
@@ -49,7 +50,7 @@ function blend(dst, src, alpha) {
   ];
 }
 
-function renderIcon(size, { background = true, padding = 0.1667 } = {}) {
+function renderIcon(size, { background = true, padding = 0.1 } = {}) {
   const samples = 4;
   const pixels = Buffer.alloc(size * size * 4);
   const scale = (size * (1 - padding * 2)) / 48;

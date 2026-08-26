@@ -5,7 +5,7 @@
  */
 import { getSupabase, isConfigured, ensureSessionFromUrl, translateAuthError } from './supabase.js';
 import { qs, icon, noticeMarkup, setBusy, esc } from './ui.js';
-import { renderSetupScreen } from './setup.js';
+import { renderNotConfigured } from './setup.js';
 import { validatePassword, validateMatch, passwordStrength } from './validation.js';
 
 const card = qs('#reset-card');
@@ -116,7 +116,7 @@ function renderForm(email) {
 
 async function start() {
   if (!isConfigured()) {
-    renderSetupScreen(document.body);
+    renderNotConfigured(document.body);
     return;
   }
   try {

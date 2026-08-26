@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Trazia">
   <title>Trazia</title>
-  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="9">
-    <path d="M12 28.5 29 11.5"/>
-    <path d="M21 34.5 30 25.5" opacity=".55"/>
+  <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="7.1">
+    <path d="M10.7 33.2 26.8 14.7"/>
+    <path d="M24.85 33.3 34.2 22.6" opacity=".6"/>
   </g>
-  <circle cx="34.5" cy="35" r="4.2" fill="currentColor"/>
+  <circle cx="37.5" cy="33.5" r="3.4" fill="currentColor"/>
 </svg>

@@ -13,7 +13,7 @@ import {
   loadingScreen, errorState,
 } from './ui.js';
 import { initials } from './format.js';
-import { renderSetupScreen } from './setup.js';
+import { renderNotConfigured } from './setup.js';
 import { mountOnboarding } from './views/onboarding.js';
 
 import * as HomeView from './views/home.js';
@@ -51,7 +51,7 @@ let unsubscribeShell = null;
 
 async function start() {
   if (!isConfigured()) {
-    renderSetupScreen(root);
+    renderNotConfigured(root);
     return;
   }
 

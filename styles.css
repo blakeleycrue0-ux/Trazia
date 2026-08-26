@@ -202,6 +202,7 @@ h3 {
 .brand__symbol--sm { width: 22px; height: 22px; }
 
 .brand__word {
+  white-space: nowrap;
   font-family: var(--font-brand);
   font-weight: 800;
   font-size: 1.36rem;
@@ -543,104 +544,110 @@ h3 {
 .switch input:focus-visible + .switch__track { outline: 2.5px solid var(--focus-ring); outline-offset: 2px; }
 
 /* -----------------------------------------------------------------------------
-   7. Landing y autenticacion
+   7. Bienvenida y autenticacion
    -------------------------------------------------------------------------- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(250, 247, 240, 0.88);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--mid) var(--ease);
-}
-.site-header.is-stuck { border-bottom-color: var(--line); }
-.site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 68px;
-}
-.site-header__actions { display: flex; align-items: center; gap: 6px; }
-.site-header__actions .btn { min-height: 40px; padding: 0 16px; font-size: 0.88rem; }
-
-.hero { padding: clamp(40px, 7vw, 84px) 0 clamp(48px, 8vw, 92px); }
-.hero__inner { display: grid; gap: 44px; }
-@media (min-width: 940px) {
-  .hero__inner { grid-template-columns: 1.06fr 0.94fr; align-items: center; gap: 64px; }
-}
-.hero__copy { min-width: 0; }
-.hero__art { display: none; min-width: 0; }
-@media (min-width: 940px) { .hero__art { display: block; } }
-.hero__art svg { width: 100%; height: auto; }
-.hero__symbol { width: 60px; height: 60px; margin-bottom: 26px; }
-@media (min-width: 940px) { .hero__symbol { display: none; } }
-.hero__title { max-width: 15ch; }
-.hero__title em {
-  font-style: normal;
-  color: var(--blue);
+/* Pantalla de bienvenida: es la puerta de entrada de la aplicacion, no una web. */
+.welcome {
   position: relative;
-}
-.hero__title .dot { color: var(--coral); }
-.hero__lede { max-width: 46ch; margin-top: 20px; }
-.hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-.hero__cta .btn { min-width: 168px; }
-.hero__note { margin-top: 18px; font-size: 0.85rem; color: var(--muted); }
-
-.rule { height: 1px; background: var(--line); border: 0; margin: 0; }
-
-.section { padding: clamp(44px, 6vw, 76px) 0; }
-.section__head { max-width: 52ch; margin-bottom: 34px; }
-.section__head .eyebrow { display: block; margin-bottom: 12px; }
-
-.feature-list { border-top: 1px solid var(--line); }
-.feature {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 4px 16px;
-  padding: 22px 0;
-  border-bottom: 1px solid var(--line);
-  transition: background var(--mid) var(--ease);
-}
-.feature:hover { background: rgba(255, 255, 255, 0.6); }
-.feature__num {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--lavender);
-  padding-top: 2px;
-}
-.feature__title { font-size: 1.06rem; font-weight: 800; letter-spacing: -0.012em; }
-.feature__text { grid-column: 2; color: var(--muted); font-size: 0.94rem; max-width: 58ch; }
-@media (min-width: 860px) {
-  .feature { grid-template-columns: 64px 260px 1fr; align-items: baseline; padding: 26px 0; }
-  .feature__text { grid-column: 3; }
-}
-
-.band {
-  position: relative;
-  background: var(--navy);
-  color: var(--white);
   overflow: hidden;
-}
-.band .wrap { position: relative; z-index: 1; padding-block: clamp(48px, 7vw, 84px); }
-.band h2 { color: var(--white); }
-.band p { color: rgba(255, 255, 255, 0.76); }
-.band__grid { display: grid; gap: 28px; margin-top: 36px; }
-@media (min-width: 760px) { .band__grid { grid-template-columns: repeat(3, 1fr); gap: 36px; } }
-.band__item { border-top: 1px solid rgba(255, 255, 255, 0.22); padding-top: 16px; }
-.band__item h3 { color: var(--white); margin-bottom: 6px; }
-.band__item p { font-size: 0.92rem; }
-
-.site-footer { padding: 40px 0 48px; border-top: 1px solid var(--line); }
-.site-footer__inner {
+  min-height: 100dvh;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: 0.85rem;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px var(--gutter) calc(26px + env(safe-area-inset-bottom));
+  text-align: center;
+}
+.welcome__inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 390px);
+}
+.welcome__symbol { width: 76px; height: 76px; margin: 0 auto; }
+/* Marca de agua: el propio símbolo, muy tenue, saliendo por la esquina. */
+.welcome__art {
+  position: absolute;
+  right: -14%;
+  bottom: -16%;
+  width: min(58vw, 460px);
+  opacity: 0.055;
+  pointer-events: none;
+}
+@media (max-width: 520px) { .welcome__art { right: -30%; bottom: -8%; width: 78vw; } }
+.welcome__word { margin-top: 18px; }
+.welcome__word .brand__word { font-size: 1.62rem; }
+.welcome__title {
+  margin-top: 26px;
+  font-size: clamp(2.4rem, 2rem + 3.2vw, 3.3rem);
+}
+.welcome__title .dot { color: var(--coral); }
+.welcome__text {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.55;
+  text-wrap: balance;
+}
+.welcome__actions { display: grid; gap: 10px; margin-top: 34px; }
+.welcome__actions .btn { min-height: 50px; }
+.welcome__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(26px + env(safe-area-inset-bottom));
+  z-index: 1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+}
+@media (min-width: 700px) {
+  .welcome__symbol { width: 88px; height: 88px; }
+  .welcome__actions { grid-template-columns: 1fr 1fr; }
+}
+
+.notice {
+  display: flex;
+  gap: 11px;
+  padding: 13px 15px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--line-strong);
+  background: var(--surface);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+.notice__icon { flex: none; width: 19px; height: 19px; margin-top: 1px; }
+.notice strong { display: block; margin-bottom: 2px; }
+.notice--error { border-color: rgba(192, 57, 43, 0.35); background: var(--danger-soft); color: #7d2318; }
+.notice--success { border-color: rgba(64, 86, 181, 0.3); background: #eef1fb; color: var(--blue-deep); }
+.notice--info { background: var(--cream-deep); }
+.notice + 
+.divider-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-light);
+}
+.divider-text::before, .divider-text::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.provider-note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-sm);
+  font-size: 0.8rem;
   color: var(--muted);
 }
 
@@ -691,54 +698,14 @@ h3 {
 }
 .auth-forgot { display: flex; justify-content: flex-end; margin: -6px 0 18px; }
 
-.divider-text {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 22px 0;
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted-light);
-}
-.divider-text::before, .divider-text::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line);
-}
 
-.provider-note {
-  margin-top: 10px;
-  padding: 10px 12px;
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--r-sm);
-  font-size: 0.8rem;
-  color: var(--muted);
-}
 
-.notice {
-  display: flex;
-  gap: 11px;
-  padding: 13px 15px;
-  border-radius: var(--r-md);
-  border: 1.5px solid var(--line-strong);
-  background: var(--surface);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-.notice__icon { flex: none; width: 19px; height: 19px; margin-top: 1px; }
-.notice strong { display: block; margin-bottom: 2px; }
-.notice--error { border-color: rgba(192, 57, 43, 0.35); background: var(--danger-soft); color: #7d2318; }
-.notice--success { border-color: rgba(64, 86, 181, 0.3); background: #eef1fb; color: var(--blue-deep); }
-.notice--info { background: var(--cream-deep); }
-.notice + .notice { margin-top: 10px; }
-.form-notice { margin-bottom: 18px; }
 
 /* Pantalla de configuracion pendiente */
 .setup-screen { min-height: 100dvh; display: grid; place-items: center; padding: 32px var(--gutter); }
 .setup-screen__inner { max-width: 560px; }
+.setup-screen__inner--center { text-align: center; max-width: 420px; }
+.setup-screen__inner--center .brand__symbol { margin-inline: auto; }
 .setup-screen code {
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   font-size: 0.88em;

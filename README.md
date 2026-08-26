@@ -39,9 +39,14 @@ como estático en **Netlify**.
   ejecución es el cliente oficial `@supabase/supabase-js`, que se sirve desde el
   propio dominio (`vendor/supabase-js.esm.js`) para no depender de un CDN
   externo y poder aplicar una CSP estricta.
-- **Tres páginas.** `index.html` (portada), `auth.html` (registro, acceso y
+- **Entrada directa.** `index.html` no es una página de marketing: es la
+  pantalla de bienvenida de la aplicación. Si ya hay sesión pasa sola a
+  `app.html`; si no, ofrece crear cuenta o entrar, y justo después viene el
+  onboarding. Las otras páginas son `auth.html` (registro, acceso y
   recuperación), `app.html` (la aplicación, con rutas por hash) y `reset.html`
   (nueva contraseña desde el enlace del correo).
+- **Nada técnico a la vista.** Si la aplicación no puede conectarse, quien la
+  usa ve un aviso neutro. La pantalla de configuración es solo para desarrollo.
 - **La seguridad vive en PostgreSQL.** Todas las tablas tienen RLS activado y
   políticas por usuario. El navegador nunca es la capa de seguridad.
 - **Nada inventado.** La aplicación solo muestra datos que ha creado la persona
@@ -169,9 +174,13 @@ npx http-server . -p 8788 -c-1    # o cualquier servidor estático
 Abre <http://localhost:8788>. Tiene que servirse por HTTP (no `file://`) porque
 la aplicación usa módulos ES.
 
-Si prefieres no crear el `.env`, abre la aplicación sin configurar: verás una
-pantalla que explica qué falta y permite guardar la URL y la anon key en este
-navegador solo para desarrollo.
+Si prefieres no crear el `.env`, abre la aplicación sin configurar: en local
+verás un formulario que permite guardar la URL y la anon key en este navegador.
+
+Esa pantalla es solo para desarrollo. **Quien use Trazia nunca la ve**: fuera de
+`localhost` aparece un aviso neutro de que la aplicación no está disponible, sin
+detalles técnicos. Para verla en otro entorno hay que pedirla con `?setup` en la
+dirección, y con `?setup=0` puedes comprobar en local qué se ve en producción.
 
 ### 8. Desplegar en Netlify
 
@@ -194,7 +203,7 @@ navegador solo para desarrollo.
 ## Estructura del proyecto
 
 ```
-index.html              Portada
+index.html              Pantalla de bienvenida y entrada a la aplicación
 auth.html               Registro, inicio de sesión y recuperación
 reset.html              Nueva contraseña desde el enlace del correo
 app.html                Contenedor de la aplicación
@@ -216,8 +225,9 @@ js/
   format.js             Fechas, números y textos en español
   validation.js         Validación de nombre, correo y contraseña
   ui.js                 Iconos, marca, avisos, diálogos y estados
-  setup.js              Pantalla de configuración pendiente
-  landing.js            Detalles de la portada
+  setup.js              Aviso de no disponible y configuración de desarrollo
+  welcome.js            Pantalla de bienvenida
+  boot-redirect.js      Entra directo si ya hay sesión guardada
   views/                Una vista por sección
     onboarding.js  home.js  schedule.js  grades.js  habits.js
     journal.js  books.js  focus.js  countdowns.js  settings.js  parts.js
@@ -302,7 +312,7 @@ node tests/e2e.mjs        # necesita playwright
 node scripts/generate-config.mjs   # deja config.js como estaba
 ```
 
-`tests/e2e.mjs` recorre con un navegador real el flujo completo: portada,
+`tests/e2e.mjs` recorre con un navegador real el flujo completo: bienvenida,
 validaciones del registro, onboarding entero, inicio, notas y cálculo de medias,
 hábitos y rachas, horario en día y semana, diario, libros, cuentas atrás,
 temporizador (comprobando que el tiempo avanza, se pausa y sobrevive al cambio
@@ -318,9 +328,11 @@ usuarios de prueba con UUID fijos.
 
 ## Identidad de marca
 
-- **Símbolo**: dos barras diagonales redondeadas y un punto. La principal en
-  azul, la secundaria en lavanda y el punto en coral. Funciona en color, en una
-  sola tinta (`assets/symbol-mono.svg`) y como icono de aplicación.
+- **Símbolo**: dos barras diagonales redondeadas del mismo grosor y un punto.
+  La principal en azul `#574CEF`, la secundaria en lavanda `#9473E8` y el punto
+  en naranja `#FE7444`, sobre `#030826` cuando lleva fondo. Esos son los colores
+  del logo original y no se retocan. Funciona en color, en una sola tinta
+  (`assets/symbol-mono.svg`) y como icono de aplicación.
 - **Wordmark**: `trazia`, siempre en minúsculas, con el punto de la i en coral.
 - **Usos**: símbolo + wordmark, símbolo solo o wordmark solo.
 

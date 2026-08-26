@@ -11,7 +11,7 @@ import { esc, qs, icon, noticeMarkup, setBusy, toast } from './ui.js';
 import {
   validateName, validateEmail, validatePassword, validateMatch, passwordStrength,
 } from './validation.js';
-import { renderSetupScreen } from './setup.js';
+import { renderNotConfigured } from './setup.js';
 
 const card = qs('#auth-card');
 const MODES = { registro: 'registro', login: 'login', recuperar: 'recuperar' };
@@ -418,7 +418,7 @@ function setMode(mode, options = {}) {
 
 async function start() {
   if (!isConfigured()) {
-    renderSetupScreen(document.body);
+    renderNotConfigured(document.body);
     return;
   }
 

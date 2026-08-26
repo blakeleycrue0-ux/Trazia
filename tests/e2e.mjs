@@ -85,13 +85,17 @@ page.on('pageerror', (error) => jsErrors.push(`pageerror: ${error.message}`));
 
 try {
   /* ---------------------------------------------------------------------- */
-  section('Portada');
+  section('Bienvenida');
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('load').catch(() => {});
   check('el título es correcto', await page.title() === 'Trazia — Traza tu día', await page.title());
-  check('el eslogan aparece en el hero', (await page.locator('h1.hero__title').innerText()).includes('Traza tu día'));
-  check('hay enlaces de acceso', await page.locator('a[href*="auth.html"]').count() >= 2);
-  await shot(page, '01-portada');
+  check('el eslogan es lo primero', (await page.locator('h1.welcome__title').innerText()).includes('Traza tu día'));
+  check('solo hay dos accesos', await page.locator('a[href*="auth.html"]').count() === 2);
+  check('no hay secciones de página web',
+    await page.locator('.feature, .site-footer, .band, .site-header').count() === 0);
+  check('no se menciona nada técnico',
+    !/supabase|postgres|netlify/i.test(await page.locator('body').innerText()));
+  await shot(page, '01-bienvenida');
 
   /* ---------------------------------------------------------------------- */
   section('Registro');
@@ -501,6 +505,32 @@ try {
   await anon.close();
 
   /* ---------------------------------------------------------------------- */
+  section('Entrada directa a la aplicación');
+  await page.goto(BASE, { waitUntil: 'domcontentloaded' });
+  await page.waitForSelector('.greeting', { timeout: 15000 });
+  check('con sesión iniciada la bienvenida entra directa a la aplicación',
+    page.url().includes('app.html'));
+
+  // Sin configuración, quien usa la aplicación ve un aviso neutro, no la
+  // pantalla técnica.
+  const sinConfig = await browser.newContext({ locale: 'es-ES' });
+  await sinConfig.route('**/config.js', (route) => route.fulfill({
+    status: 200,
+    contentType: 'text/javascript',
+    body: 'window.TRAZIA_CONFIG = { SUPABASE_URL: "", SUPABASE_ANON_KEY: "", GOOGLE_AUTH_ENABLED: false };',
+  }));
+  const roto = await sinConfig.newPage();
+  // ?setup=0 fuerza la vista de quien usa la aplicación aunque estemos en local.
+  await roto.goto(`${BASE}/index.html?setup=0`, { waitUntil: 'domcontentloaded' });
+  await roto.waitForSelector('.setup-screen', { timeout: 15000 });
+  const textoRoto = await roto.locator('body').innerText();
+  check('sin configuración se muestra un aviso neutro', textoRoto.includes('no está disponible'), textoRoto.slice(0, 80));
+  check('el aviso no menciona Supabase ni variables de entorno',
+    !/supabase|anon key|variable/i.test(textoRoto));
+  await shot(roto, '19-no-disponible');
+  await roto.close();
+  await sinConfig.close();
+
   section('Responsive');
   const mobile = await context.newPage();
   await mobile.setViewportSize({ width: 390, height: 844 });

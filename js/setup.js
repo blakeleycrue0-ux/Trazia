@@ -1,44 +1,76 @@
 /**
- * Pantalla que se muestra cuando la aplicacion todavia no esta conectada a
- * Supabase. Explica que variables hacen falta y, para desarrollo local, permite
- * guardarlas en este navegador sin tocar el codigo.
+ * Qué se enseña cuando la aplicación no puede conectarse a su base de datos.
+ *
+ * A quien usa Trazia no se le enseña nada técnico: solo un aviso claro de que
+ * ahora mismo no está disponible. El formulario de configuración es una
+ * herramienta de desarrollo y únicamente aparece en local o si se pide
+ * explícitamente con ?setup en la dirección.
  */
 import { getConfig, saveLocalConfig, clearLocalConfig } from './supabase.js';
 import { esc, qs, symbolMarkup, toast } from './ui.js';
 
+const DEV_HOSTS = ['localhost', '127.0.0.1', '[::1]', ''];
+
+/**
+ * En local aparece sola; en cualquier otro sitio hay que pedirla con ?setup.
+ * Con ?setup=0 se fuerza la vista de quien usa la aplicación, útil para
+ * comprobar en local qué se ve realmente en producción.
+ */
+function isDevContext() {
+  const { hostname, search } = window.location;
+  const flag = new URLSearchParams(search).get('setup');
+  if (flag !== null) return !['0', 'off', 'false', 'no'].includes(flag.toLowerCase());
+  return DEV_HOSTS.includes(hostname) || hostname.endsWith('.local');
+}
+
+/** Punto de entrada: elige qué mostrar según el contexto. */
+export function renderNotConfigured(container) {
+  if (isDevContext()) renderSetupScreen(container);
+  else renderUnavailable(container);
+}
+
+/** Aviso neutro para quien usa la aplicación. */
+export function renderUnavailable(container) {
+  container.innerHTML = `
+    <div class="setup-screen">
+      <div class="setup-screen__inner setup-screen__inner--center">
+        ${symbolMarkup({ size: 46 })}
+        <h1 class="mt-md">Trazia no está disponible ahora mismo</h1>
+        <p class="lede mt-sm">Vuelve a intentarlo dentro de un momento.</p>
+        <div class="btn-row mt-lg" style="justify-content:center">
+          <button type="button" class="btn btn--primary" id="reintentar">Reintentar</button>
+        </div>
+      </div>
+    </div>`;
+  qs('#reintentar', container).addEventListener('click', () => window.location.reload());
+}
+
+/** Formulario de configuración para desarrollo. */
 export function renderSetupScreen(container) {
   const config = getConfig();
   container.innerHTML = `
     <div class="setup-screen">
       <div class="setup-screen__inner">
         ${symbolMarkup({ size: 44 })}
-        <h1 class="mt-md">Falta conectar Trazia con Supabase</h1>
+        <p class="eyebrow mt-md">Modo desarrollo</p>
+        <h1 class="mt-sm">Falta conectar con la base de datos</h1>
         <p class="lede mt-sm">
-          Trazia guarda tus datos en tu propio proyecto de Supabase. Para que
-          funcione hay que indicarle a qué proyecto conectarse.
+          Esta pantalla solo aparece en local o añadiendo <code>?setup</code> a la
+          dirección. Quien use Trazia nunca la ve.
         </p>
 
         <div class="notice notice--info mt-lg">
           <div>
-            <strong>En producción (Netlify)</strong>
-            <span>Define las variables de entorno <code>SUPABASE_URL</code> y
-            <code>SUPABASE_ANON_KEY</code> en tu proyecto y vuelve a desplegar.
-            El build genera <code>config.js</code> con esos valores.</span>
+            <strong>En producción</strong>
+            <span>Define <code>SUPABASE_URL</code> y <code>SUPABASE_ANON_KEY</code> como
+            variables de entorno y vuelve a desplegar: el build genera <code>config.js</code>.</span>
           </div>
         </div>
 
-        <ol>
-          <li>Crea un proyecto en Supabase y ejecuta <code>database.sql</code>.</li>
-          <li>Copia la <em>Project URL</em> y la <em>anon public key</em> desde Project Settings → API.</li>
-          <li>Añádelas como variables de entorno y despliega.</li>
-        </ol>
-
         <form id="setup-form" class="mt-lg" novalidate>
-          <h2 class="section__head" style="margin-bottom:14px">Configuración local</h2>
           <p class="small muted" style="margin-bottom:16px">
-            Solo para desarrollo. Los valores se guardan en este navegador y no se
-            envían a ningún sitio. La <em>anon key</em> es una clave pública; la
-            <em>service role key</em> no debe usarse nunca aquí.
+            Los valores se guardan solo en este navegador. La <em>anon key</em> es una
+            clave pública; la <em>service role key</em> no debe usarse nunca aquí.
           </p>
           <label class="field">
             <span class="field__label" for="setup-url">URL del proyecto</span>

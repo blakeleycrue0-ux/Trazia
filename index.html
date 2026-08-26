@@ -7,6 +7,8 @@
 <meta name="description" content="Organiza tus clases, notas, hábitos y estudio en un solo lugar.">
 <meta name="theme-color" content="#FAF7F0">
 <meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="trazia">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Trazia">
@@ -16,7 +18,7 @@
 <meta property="og:image" content="https://trazia.site/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Símbolo de Trazia sobre fondo azul marino">
+<meta property="og:image:alt" content="Símbolo de Trazia">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Trazia — Traza tu día">
@@ -33,183 +35,41 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Manrope:wght@500..800&family=Nunito:wght@800&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
+<script src="js/boot-redirect.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<main class="welcome" id="bienvenida">
+  <svg class="welcome__art" viewBox="0 0 48 48" aria-hidden="true">
+    <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#172554" stroke-width="7.1" stroke-linecap="round"/>
+    <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#172554" stroke-width="7.1" stroke-linecap="round"/>
+    <circle cx="37.5" cy="33.5" r="3.4" fill="#172554"/>
+  </svg>
 
-<header class="site-header" id="cabecera">
-  <div class="wrap site-header__inner">
-    <a href="index.html" aria-label="Trazia, inicio">
-      <span class="brand">
-        <svg class="brand__symbol" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M12 28.5 29 11.5" fill="none" stroke="#4056B5" stroke-width="9" stroke-linecap="round"/>
-          <path d="M21 34.5 30 25.5" fill="none" stroke="#A99BE8" stroke-width="9" stroke-linecap="round"/>
-          <circle cx="34.5" cy="35" r="4.2" fill="#F47F68"/>
-        </svg>
-        <span class="brand__word"><span class="visually-hidden">trazia</span><span aria-hidden="true">traz<span class="brand__i">ı<i class="brand__tittle"></i></span>a</span></span>
+  <div class="welcome__inner">
+    <svg class="welcome__symbol" viewBox="0 0 48 48" aria-hidden="true">
+      <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
+      <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
+      <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
+    </svg>
+
+    <p class="welcome__word">
+      <span class="brand__word">
+        <span class="visually-hidden">trazia</span>
+        <span aria-hidden="true">traz<span class="brand__i">ı<i class="brand__tittle"></i></span>a</span>
       </span>
-    </a>
-    <nav class="site-header__actions" aria-label="Acceso" id="acceso">
-      <a class="btn btn--quiet" href="auth.html?modo=login">Iniciar sesión</a>
-      <a class="btn btn--primary" href="auth.html?modo=registro">Crear cuenta</a>
-    </nav>
+    </p>
+
+    <h1 class="welcome__title">Traza tu día<span class="dot">.</span></h1>
+    <p class="welcome__text">Todo lo que necesitas para llevar el insti a tu manera.</p>
+
+    <div class="welcome__actions">
+      <a class="btn btn--primary btn--block" href="auth.html?modo=registro">Crear cuenta</a>
+      <a class="btn btn--ghost btn--block" href="auth.html?modo=login">Iniciar sesión</a>
+    </div>
   </div>
-</header>
 
-<main id="contenido">
-  <section class="hero">
-    <div class="wrap hero__inner">
-      <div class="hero__copy">
-        <svg class="hero__symbol" viewBox="0 0 48 48" aria-hidden="true">
-          <path d="M12 28.5 29 11.5" fill="none" stroke="#4056B5" stroke-width="9" stroke-linecap="round"/>
-          <path d="M21 34.5 30 25.5" fill="none" stroke="#A99BE8" stroke-width="9" stroke-linecap="round"/>
-          <circle cx="34.5" cy="35" r="4.2" fill="#F47F68"/>
-        </svg>
-        <h1 class="hero__title">Traza tu día<span class="dot">.</span></h1>
-        <p class="lede hero__lede">
-          Todo lo que necesitas para llevar el insti a tu manera: horario, notas,
-          hábitos, concentración, diario y libros en un mismo sitio.
-        </p>
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="auth.html?modo=registro">Crear cuenta</a>
-          <a class="btn btn--ghost" href="auth.html?modo=login">Iniciar sesión</a>
-        </div>
-        <p class="hero__note">Para ESO y Bachillerato. Configuras tus asignaturas y tu horario al entrar.</p>
-      </div>
-
-      <div class="hero__art" aria-hidden="true">
-        <svg viewBox="0 0 420 420" role="presentation">
-          <rect width="420" height="420" rx="26" fill="#172554"/>
-          <g stroke-linecap="round" fill="none">
-            <path d="M64 207 119 152" stroke="#A99BE8" stroke-width="20" opacity=".55"/>
-            <path d="M129 251 278 103" stroke="#8FA4F0" stroke-width="79"/>
-            <path d="M208 304 286 225" stroke="#A99BE8" stroke-width="79"/>
-          </g>
-          <circle cx="326" cy="308" r="37" fill="#F47F68"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <section class="section" aria-labelledby="que-incluye">
-    <div class="wrap">
-      <div class="section__head">
-        <span class="eyebrow">Qué incluye</span>
-        <h2 id="que-incluye">Siete espacios que funcionan juntos, no siete apps distintas.</h2>
-      </div>
-      <div class="feature-list">
-        <article class="feature">
-          <span class="feature__num">01</span>
-          <h3 class="feature__title">Horario</h3>
-          <p class="feature__text">Tus clases por día o por semana, con el color de cada asignatura. Los exámenes y las entregas aparecen donde toca.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">02</span>
-          <h3 class="feature__title">Notas</h3>
-          <p class="feature__text">Apunta cada examen o trabajo con su peso y Trazia calcula la media ponderada de la asignatura y la media global. Siempre te enseña cómo sale el número.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">03</span>
-          <h3 class="feature__title">Hábitos</h3>
-          <p class="feature__text">Eliges qué quieres mantener y qué días toca. La racha cuenta los días programados seguidos, no te presiona los que no tocan.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">04</span>
-          <h3 class="feature__title">Concentración</h3>
-          <p class="feature__text">Temporizador de estudio y descanso con la duración que decidas. Puedes guardar la sesión al terminar para ver cuánto has estudiado.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">05</span>
-          <h3 class="feature__title">Diario</h3>
-          <p class="feature__text">Un espacio privado para escribir cómo ha ido el día. Solo lo ves tú.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">06</span>
-          <h3 class="feature__title">Libros</h3>
-          <p class="feature__text">Lo que quieres leer, lo que estás leyendo y lo que ya has terminado. Sin listas ajenas.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">07</span>
-          <h3 class="feature__title">Cuenta atrás</h3>
-          <p class="feature__text">Creas la tuya con su fecha: la selectividad, un examen final, el último día de clase.</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="band" aria-labelledby="privacidad">
-    <span class="trace-motif" aria-hidden="true"></span>
-    <div class="wrap">
-      <span class="eyebrow" style="color:#A99BE8">Tus datos</span>
-      <h2 id="privacidad" class="mt-sm">Lo que escribes en Trazia es tuyo.</h2>
-      <p class="mt-md" style="max-width:52ch">
-        Trazia está pensada también para menores de edad, así que solo guarda lo que
-        hace falta para que la aplicación funcione.
-      </p>
-      <div class="band__grid">
-        <div class="band__item">
-          <h3>Separado por usuario</h3>
-          <p>Cada fila de la base de datos está ligada a tu cuenta y protegida con Row Level Security de PostgreSQL. Nadie más puede leer tus datos.</p>
-        </div>
-        <div class="band__item">
-          <h3>Te lo puedes llevar</h3>
-          <p>Desde Ajustes puedes exportar todo en un archivo JSON y volver a importarlo cuando quieras.</p>
-        </div>
-        <div class="band__item">
-          <h3>Y borrarlo</h3>
-          <p>Puedes eliminar tu cuenta desde la propia aplicación. Al hacerlo se borran también todos tus datos.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="como-empieza">
-    <div class="wrap">
-      <div class="section__head">
-        <span class="eyebrow">Cómo empieza</span>
-        <h2 id="como-empieza">En tres pasos ya lo tienes montado.</h2>
-      </div>
-      <div class="feature-list">
-        <article class="feature">
-          <span class="feature__num">01</span>
-          <h3 class="feature__title">Creas tu cuenta</h3>
-          <p class="feature__text">Con tu correo y una contraseña. Nada más.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">02</span>
-          <h3 class="feature__title">Nos cuentas qué estudias</h3>
-          <p class="feature__text">Tu curso, tus asignaturas y, si te apetece en ese momento, tu horario. Si no, lo dejas para después.</p>
-        </article>
-        <article class="feature">
-          <span class="feature__num">03</span>
-          <h3 class="feature__title">Empiezas a usarlo</h3>
-          <p class="feature__text">Trazia ordena tu día alrededor de lo que tienes hoy y de lo que viene.</p>
-        </article>
-      </div>
-      <div class="hero__cta mt-lg">
-        <a class="btn btn--primary" href="auth.html?modo=registro">Crear cuenta</a>
-      </div>
-    </div>
-  </section>
+  <p class="welcome__foot">Para ESO y Bachillerato</p>
 </main>
-
-<footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <span class="brand">
-      <svg class="brand__symbol brand__symbol--sm" viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M12 28.5 29 11.5" fill="none" stroke="#4056B5" stroke-width="9" stroke-linecap="round"/>
-        <path d="M21 34.5 30 25.5" fill="none" stroke="#A99BE8" stroke-width="9" stroke-linecap="round"/>
-        <circle cx="34.5" cy="35" r="4.2" fill="#F47F68"/>
-      </svg>
-      <span class="brand__word"><span class="visually-hidden">trazia</span><span aria-hidden="true">traz<span class="brand__i">ı<i class="brand__tittle"></i></span>a</span></span>
-    </span>
-    <span>Traza tu día.</span>
-    <a class="link-btn" href="auth.html?modo=login">Entrar en Trazia</a>
-  </div>
-</footer>
-
-<script type="module" src="js/landing.js"></script>
+<script type="module" src="js/welcome.js"></script>
 </body>
 </html>
