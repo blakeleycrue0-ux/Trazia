@@ -83,19 +83,23 @@ En **Authentication → Providers → Email**:
 
 En **Authentication → URL Configuration**:
 
-- **Site URL**: la URL pública de tu sitio (por ejemplo `https://trazia.netlify.app`).
-- **Redirect URLs**: añade estas dos, y sus equivalentes locales si desarrollas
-  en tu máquina:
+- **Site URL**: la URL pública de tu sitio, sin barra final: `https://trazia.site`.
+- **Redirect URLs**: la lista acepta comodines, así que con una entrada por
+  entorno es suficiente:
 
   ```
-  https://TU-DOMINIO/app.html
-  https://TU-DOMINIO/reset.html
-  http://localhost:8788/app.html
-  http://localhost:8788/reset.html
+  https://trazia.site/**
+  http://localhost:8788/**
   ```
+
+  Si prefieres no usar comodines, añade una por página:
+  `https://trazia.site/app.html` y `https://trazia.site/reset.html`.
 
 Sin esas URLs, los enlaces de confirmación y de recuperación no vuelven a la
 aplicación.
+
+Si cambias de dominio, acuérdate de actualizar también `og:url`, `og:image` y
+`canonical` en `index.html`.
 
 ### 4. Configurar el correo
 
