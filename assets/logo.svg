@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136 48" role="img" aria-label="trazia">
+  <title>trazia</title>
+  <path d="M12 28.5 29 11.5" fill="none" stroke="#4056B5" stroke-width="9" stroke-linecap="round"/>
+  <path d="M21 34.5 30 25.5" fill="none" stroke="#A99BE8" stroke-width="9" stroke-linecap="round"/>
+  <circle cx="34.5" cy="35" r="4.2" fill="#F47F68"/>
+  <text x="52" y="34" font-family="Nunito, 'Avenir Next', 'Segoe UI', system-ui, sans-serif"
+    font-size="30" font-weight="800" letter-spacing="-0.36" fill="#172554">trazıa</text>
+  <circle cx="109.8" cy="12.7" r="3" fill="#F47F68"/>
+</svg>

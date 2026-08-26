@@ -1,0 +1,12 @@
+# Variables de entorno locales (nunca se suben)
+.env
+.env.*
+!.env.example
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Dependencias y artefactos
+node_modules/
+.netlify/

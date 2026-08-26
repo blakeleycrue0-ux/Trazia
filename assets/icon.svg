@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Trazia">
+  <title>Trazia</title>
+  <rect width="512" height="512" rx="114" fill="#172554"/>
+  <g transform="translate(85.33 85.33) scale(7.1111)">
+    <path d="M12 28.5 29 11.5" fill="none" stroke="#8FA4F0" stroke-width="9" stroke-linecap="round"/>
+    <path d="M21 34.5 30 25.5" fill="none" stroke="#A99BE8" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="34.5" cy="35" r="4.2" fill="#F47F68"/>
+  </g>
+</svg>
