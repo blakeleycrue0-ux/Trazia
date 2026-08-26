@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trazia — anuncio 9:16</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&family=Shantell+Sans:ital,wght@1,600..700&family=Space+Mono:wght@400;700&family=Nunito:wght@800&display=swap">
+<style>
+/* =============================================================================
+   Anuncio de Trazia, 1080x1920, 8 segundos.
+   Todo es HTML y CSS: el texto sale nítido y con las tipografías de la marca.
+   La animación va en una sola línea de tiempo, así que se puede recorrer
+   fotograma a fotograma para exportarla a vídeo.
+   ============================================================================= */
+:root {
+  --blue: #574cef;
+  --lavender: #9473e8;
+  --orange: #fe7444;
+  --ink: #030826;
+  --paper: #faf7f0;
+  --white: #fff;
+  --grid: rgba(3, 8, 38, 0.075);
+  --font-ui: "Archivo", system-ui, sans-serif;
+  --font-marker: "Shantell Sans", cursive;
+  --font-mono: "Space Mono", monospace;
+  --font-brand: "Nunito", system-ui, sans-serif;
+  --ease: cubic-bezier(0.2, 0.8, 0.25, 1);
+  --back: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; background: #0b0b0f; overflow: hidden; }
+
+/* El escenario mide siempre 1080x1920 y se escala para caber en pantalla. */
+.fit {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+.stage {
+  position: relative;
+  width: 1080px;
+  height: 1920px;
+  flex: none;
+  overflow: hidden;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 2px, transparent 2px),
+    linear-gradient(90deg, var(--grid) 2px, transparent 2px);
+  background-size: 120px 120px;
+  font-family: var(--font-ui);
+  color: var(--ink);
+  transform: scale(var(--fit-scale, 1));
+}
+
+/* --- Titular ------------------------------------------------------------- */
+.eyebrow {
+  position: absolute;
+  top: 190px; left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink);
+  opacity: 0.55;
+  animation: fade-in 500ms var(--ease) 200ms both;
+}
+.headline {
+  position: absolute;
+  top: 258px; left: 0; right: 0;
+  text-align: center;
+  font-size: 104px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.02;
+  animation: rise 700ms var(--ease) 350ms both;
+}
+/* Las dos versiones del final de la frase ocupan el mismo hueco. */
+.swap { position: relative; display: block; height: 150px; margin-top: 6px; }
+.swap > span {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  font-family: var(--font-marker);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 118px;
+  line-height: 1.2;
+}
+.swap__a { animation: out-up 420ms var(--ease) 3400ms both; }
+.swap__b { color: var(--blue); animation: in-up 520ms var(--back) 3500ms both; }
+
+/* --- Pegatinas ------------------------------------------------------------ */
+.notes { position: absolute; inset: 640px 70px 0 70px; height: 900px; }
+.note {
+  position: absolute;
+  width: 450px;
+  padding: 36px 34px;
+  border: 6px solid var(--ink);
+  border-radius: 8px;
+  box-shadow: 14px 14px 0 var(--ink);
+  font-size: 54px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.note small {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  opacity: 0.62;
+}
+.note--1 { background: var(--lavender); animation: drop-1 900ms var(--back) 500ms both, tidy-1 900ms var(--ease) 3500ms both; }
+.note--2 { background: var(--white); animation: drop-2 900ms var(--back) 700ms both, tidy-2 900ms var(--ease) 3600ms both; }
+.note--3 { background: var(--orange); animation: drop-3 900ms var(--back) 900ms both, tidy-3 900ms var(--ease) 3700ms both; }
+.note--4 { background: var(--white); animation: drop-4 900ms var(--back) 1100ms both, tidy-4 900ms var(--ease) 3800ms both; }
+
+/* --- Cierre de marca ------------------------------------------------------ */
+.outro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0;
+  background: var(--paper);
+  animation: fade-in 500ms var(--ease) 5900ms both;
+}
+.outro__patch {
+  width: 300px; height: 300px;
+  display: grid;
+  place-items: center;
+  padding: 42px;
+  border-radius: 22%;
+  background: var(--ink);
+  box-shadow: 20px 22px 0 rgba(3, 8, 38, 0.22);
+  animation: patch-in 700ms var(--back) 6050ms both;
+}
+.outro__patch svg { width: 100%; height: auto; }
+.outro__word {
+  margin-top: 62px;
+  font-family: var(--font-brand);
+  font-weight: 800;
+  font-size: 118px;
+  line-height: 1;
+  letter-spacing: -0.012em;
+  animation: rise 600ms var(--ease) 6300ms both;
+}
+.tittle-wrap { position: relative; display: inline-block; }
+.tittle {
+  position: absolute;
+  left: 50%; top: 0.02em;
+  width: 0.2em; height: 0.2em;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--orange);
+}
+.outro__claim {
+  margin-top: 26px;
+  font-family: var(--font-marker);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 82px;
+  color: var(--blue);
+  animation: rise 600ms var(--ease) 6500ms both;
+}
+.outro__url {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 190px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  animation: rise 600ms var(--ease) 6750ms both;
+}
+.outro__foot {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 120px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  animation: fade-in 600ms var(--ease) 6900ms both;
+}
+
+/* --- Fotogramas clave ----------------------------------------------------- */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(38px); } to { opacity: 1; transform: none; } }
+@keyframes in-up { from { opacity: 0; transform: translateY(56px) rotate(-3deg); } to { opacity: 1; transform: none; } }
+@keyframes out-up { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(-46px); } }
+@keyframes patch-in { from { opacity: 0; transform: translateY(70px) rotate(-10deg) scale(0.8); } to { opacity: 1; transform: none; } }
+
+/* Caída desordenada y después colocación en rejilla. */
+@keyframes drop-1 { from { opacity: 0; transform: translate(30px, -140px) rotate(-16deg); } to { opacity: 1; transform: translate(20px, 40px) rotate(-9deg); } }
+@keyframes tidy-1 { to { transform: translate(0, 0) rotate(0deg); } }
+@keyframes drop-2 { from { opacity: 0; transform: translate(490px, -160px) rotate(14deg); } to { opacity: 1; transform: translate(500px, 104px) rotate(7deg); } }
+@keyframes tidy-2 { to { transform: translate(490px, 0) rotate(0deg); } }
+@keyframes drop-3 { from { opacity: 0; transform: translate(10px, 280px) rotate(10deg); } to { opacity: 1; transform: translate(40px, 516px) rotate(6deg); } }
+@keyframes tidy-3 { to { transform: translate(0, 470px) rotate(0deg); } }
+@keyframes drop-4 { from { opacity: 0; transform: translate(500px, 290px) rotate(-12deg); } to { opacity: 1; transform: translate(476px, 546px) rotate(-5deg); } }
+@keyframes tidy-4 { to { transform: translate(490px, 470px) rotate(0deg); } }
+</style>
+</head>
+<body>
+<div class="fit">
+  <div class="stage" id="stage">
+    <p class="eyebrow">Curso 2026 / 2027</p>
+
+    <h1 class="headline">
+      Todo el insti
+      <span class="swap">
+        <span class="swap__a">en mil sitios.</span>
+        <span class="swap__b">aquí.</span>
+      </span>
+    </h1>
+
+    <div class="notes">
+      <div class="note note--1">Horario<small>en una foto</small></div>
+      <div class="note note--2">Notas<small>en un papel</small></div>
+      <div class="note note--3">Entregas<small>en la cabeza</small></div>
+      <div class="note note--4">Hábitos<small>en ninguna parte</small></div>
+    </div>
+
+    <div class="outro">
+      <span class="outro__patch">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
+          <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
+          <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
+        </svg>
+      </span>
+      <p class="outro__word">traz<span class="tittle-wrap">ı<i class="tittle"></i></span>a</p>
+      <p class="outro__claim">Traza tu día.</p>
+      <p class="outro__url">trazia.site</p>
+      <p class="outro__foot">Gratis · ESO y Bachillerato</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Escala el escenario para que quepa en cualquier pantalla sin deformarse.
+  function fit() {
+    const scale = Math.min(window.innerWidth / 1080, window.innerHeight / 1920);
+    document.getElementById('stage').style.setProperty('--fit-scale', scale);
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  // Permite recorrer la animación fotograma a fotograma para exportarla.
+  window.seek = (seconds) => {
+    for (const animation of document.getAnimations()) {
+      animation.pause();
+      animation.currentTime = seconds * 1000;
+    }
+  };
+
+  // Deja la animación quieta al principio y la arranca cuando se pide, para
+  // que la grabación no empiece a media reproducción.
+  window.holdAd = () => window.seek(0);
+  window.startAd = () => {
+    for (const animation of document.getAnimations()) {
+      animation.currentTime = 0;
+      animation.play();
+    }
+  };
+  window.AD_DURATION = 8;
+
+  // Con ?paused el anuncio se queda quieto en el primer fotograma. Lo usa el
+  // exportador para que la grabación no empiece a media reproducción; quien
+  // abre el archivo normalmente lo ve reproducirse solo.
+  if (new URLSearchParams(location.search).has('paused')) {
+    window.holdAd();
+    requestAnimationFrame(() => window.holdAd());
+  }
+</script>
+</body>
+</html>
