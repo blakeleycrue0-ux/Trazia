@@ -85,17 +85,30 @@ page.on('pageerror', (error) => jsErrors.push(`pageerror: ${error.message}`));
 
 try {
   /* ---------------------------------------------------------------------- */
-  section('Bienvenida');
+  section('Intro');
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
   await page.waitForLoadState('load').catch(() => {});
   check('el título es correcto', await page.title() === 'Trazia — Traza tu día', await page.title());
-  check('el eslogan es lo primero', (await page.locator('h1.welcome__title').innerText()).includes('Traza tu día'));
-  check('solo hay dos accesos', await page.locator('a[href*="auth.html"]').count() === 2);
+  check('la intro empieza en la primera pantalla',
+    await page.locator('.intro__slide[data-slide="0"]:visible').count() === 1);
+  check('las demás pantallas están ocultas',
+    await page.locator('.intro__slide:visible').count() === 1);
   check('no hay secciones de página web',
     await page.locator('.feature, .site-footer, .band, .site-header').count() === 0);
   check('no se menciona nada técnico',
     !/supabase|postgres|netlify/i.test(await page.locator('body').innerText()));
-  await shot(page, '01-bienvenida');
+  await shot(page, '01-intro-1');
+
+  await page.click('.intro__hint');
+  check('tocar avanza a la segunda pantalla',
+    await page.locator('.intro__slide[data-slide="1"]:visible').count() === 1);
+  await page.click('.intro__hint');
+  await page.waitForSelector('.intro__actions');
+  check('la última pantalla ofrece los dos accesos',
+    await page.locator('.intro__actions a[href*="auth.html"]').count() === 2);
+  check('el aviso de "toca para seguir" desaparece al final',
+    !(await page.locator('.intro__hint').isVisible()));
+  await shot(page, '02-intro-final');
 
   /* ---------------------------------------------------------------------- */
   section('Registro');
@@ -120,7 +133,7 @@ try {
 
   await page.fill('#password2', password);
   check('el medidor de fuerza reacciona', (await page.locator('[data-strength-label]').first().innerText()).length > 0);
-  await shot(page, '02-registro');
+  await shot(page, '03-registro');
   await page.click('#form-registro button[type="submit"]');
 
   /* ---------------------------------------------------------------------- */
@@ -233,7 +246,7 @@ try {
   section('Hábitos');
   await page.click('.side-link[data-nav="habitos"]');
   await page.waitForSelector('.view__title:has-text("Hábitos")');
-  check('estado vacío correcto', (await page.locator('.empty__title').innerText()).includes('Todavía no tienes hábitos'));
+  check('estado vacío correcto', (await page.locator('.empty__title').innerText()).includes('Sin hábitos'));
   check('las ideas se presentan como ejemplos',
     (await page.locator('.block').innerText()).includes('Solo son ejemplos'));
 
@@ -309,7 +322,7 @@ try {
   section('Libros');
   await page.click('.side-link[data-nav="libros"]');
   await page.waitForSelector('.view__title:has-text("Libros")');
-  check('no hay libros inventados', (await page.locator('.empty__title').innerText()).includes('Todavía no has añadido'));
+  check('no hay libros inventados', (await page.locator('.empty__title').innerText()).includes('Sin libros'));
   await page.click('[data-action="add-book"]');
   await page.waitForSelector('dialog.sheet');
   await page.fill('dialog.sheet #title', 'El libro que estoy leyendo');
@@ -508,7 +521,7 @@ try {
   section('Entrada directa a la aplicación');
   await page.goto(BASE, { waitUntil: 'domcontentloaded' });
   await page.waitForSelector('.greeting', { timeout: 15000 });
-  check('con sesión iniciada la bienvenida entra directa a la aplicación',
+  check('con sesión iniciada la intro entra directa a la aplicación',
     page.url().includes('app.html'));
 
   // Sin configuración, quien usa la aplicación ve un aviso neutro, no la

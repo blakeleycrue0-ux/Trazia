@@ -32,43 +32,65 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Manrope:wght@500..800&family=Nunito:wght@800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..800&family=Shantell+Sans:ital,wght@1,600..700&family=Space+Mono:wght@400;700&family=Nunito:wght@800&display=swap">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
 <script src="js/boot-redirect.js"></script>
 </head>
 <body>
-<main class="welcome" id="bienvenida">
-  <svg class="welcome__art" viewBox="0 0 48 48" aria-hidden="true">
-    <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#172554" stroke-width="7.1" stroke-linecap="round"/>
-    <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#172554" stroke-width="7.1" stroke-linecap="round"/>
-    <circle cx="37.5" cy="33.5" r="3.4" fill="#172554"/>
-  </svg>
+<main class="intro" id="intro">
+  <div class="intro__dots" aria-hidden="true">
+    <span class="intro__dot is-on"></span><span class="intro__dot"></span><span class="intro__dot"></span>
+  </div>
 
-  <div class="welcome__inner">
-    <svg class="welcome__symbol" viewBox="0 0 48 48" aria-hidden="true">
-      <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
-      <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
-      <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
-    </svg>
-
-    <p class="welcome__word">
-      <span class="brand__word">
+  <section class="intro__slide" data-slide="0">
+    <span class="patch intro__patch">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
+        <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
+        <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
+      </svg>
+    </span>
+    <p class="intro__line">Esto es</p>
+    <p class="intro__accent">
+      <span class="brand__word" style="font-size:1em">
         <span class="visually-hidden">trazia</span>
         <span aria-hidden="true">traz<span class="brand__i">ı<i class="brand__tittle"></i></span>a</span>
       </span>
     </p>
+  </section>
 
-    <h1 class="welcome__title">Traza tu día<span class="dot">.</span></h1>
-    <p class="welcome__text">Todo lo que necesitas para llevar el insti a tu manera.</p>
+  <section class="intro__slide" data-slide="1" hidden>
+    <span class="patch intro__patch">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
+        <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
+        <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
+      </svg>
+    </span>
+    <p class="intro__line">Clases, notas, hábitos y estudio.</p>
+    <p class="intro__accent">Todo en su sitio.</p>
+  </section>
 
-    <div class="welcome__actions">
+  <section class="intro__slide" data-slide="2" hidden>
+    <span class="patch intro__patch">
+      <svg viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M10.7 33.2 26.8 14.7" fill="none" stroke="#574CEF" stroke-width="7.1" stroke-linecap="round"/>
+        <path d="M24.85 33.3 34.2 22.6" fill="none" stroke="#9473E8" stroke-width="7.1" stroke-linecap="round"/>
+        <circle cx="37.5" cy="33.5" r="3.4" fill="#FE7444"/>
+      </svg>
+    </span>
+    <h1 class="intro__accent">Traza tu día<span class="dot">.</span></h1>
+    <p class="intro__line" style="font-size:1.02rem;font-weight:600;margin-top:14px;color:var(--ink-soft)">
+      Lo montamos juntos en dos minutos.
+    </p>
+    <div class="intro__actions">
       <a class="btn btn--primary btn--block" href="auth.html?modo=registro">Crear cuenta</a>
-      <a class="btn btn--ghost btn--block" href="auth.html?modo=login">Iniciar sesión</a>
+      <a class="btn btn--ghost btn--block" href="auth.html?modo=login">Ya tengo cuenta</a>
     </div>
-  </div>
+  </section>
 
-  <p class="welcome__foot">Para ESO y Bachillerato</p>
+  <button type="button" class="intro__hint" id="intro-hint">Toca para seguir</button>
 </main>
 <script type="module" src="js/welcome.js"></script>
 </body>

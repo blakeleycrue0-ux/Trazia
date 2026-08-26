@@ -39,9 +39,9 @@ como estático en **Netlify**.
   ejecución es el cliente oficial `@supabase/supabase-js`, que se sirve desde el
   propio dominio (`vendor/supabase-js.esm.js`) para no depender de un CDN
   externo y poder aplicar una CSP estricta.
-- **Entrada directa.** `index.html` no es una página de marketing: es la
-  pantalla de bienvenida de la aplicación. Si ya hay sesión pasa sola a
-  `app.html`; si no, ofrece crear cuenta o entrar, y justo después viene el
+- **Entrada directa.** `index.html` no es una página de marketing: es una intro
+  de tres pantallas que se pasan tocando y acaba en crear cuenta o entrar. Si ya
+  hay sesión pasa sola a `app.html`, y justo después de registrarse viene el
   onboarding. Las otras páginas son `auth.html` (registro, acceso y
   recuperación), `app.html` (la aplicación, con rutas por hash) y `reset.html`
   (nueva contraseña desde el enlace del correo).
@@ -203,7 +203,7 @@ dirección, y con `?setup=0` puedes comprobar en local qué se ve en producción
 ## Estructura del proyecto
 
 ```
-index.html              Pantalla de bienvenida y entrada a la aplicación
+index.html              Intro a pantalla completa y entrada a la aplicación
 auth.html               Registro, inicio de sesión y recuperación
 reset.html              Nueva contraseña desde el enlace del correo
 app.html                Contenedor de la aplicación
@@ -226,7 +226,7 @@ js/
   validation.js         Validación de nombre, correo y contraseña
   ui.js                 Iconos, marca, avisos, diálogos y estados
   setup.js              Aviso de no disponible y configuración de desarrollo
-  welcome.js            Pantalla de bienvenida
+  welcome.js            Intro que se pasa tocando
   boot-redirect.js      Entra directo si ya hay sesión guardada
   views/                Una vista por sección
     onboarding.js  home.js  schedule.js  grades.js  habits.js
@@ -312,7 +312,7 @@ node tests/e2e.mjs        # necesita playwright
 node scripts/generate-config.mjs   # deja config.js como estaba
 ```
 
-`tests/e2e.mjs` recorre con un navegador real el flujo completo: bienvenida,
+`tests/e2e.mjs` recorre con un navegador real el flujo completo: intro,
 validaciones del registro, onboarding entero, inicio, notas y cálculo de medias,
 hábitos y rachas, horario en día y semana, diario, libros, cuentas atrás,
 temporizador (comprobando que el tiempo avanza, se pausa y sobrevive al cambio
@@ -345,8 +345,12 @@ usuarios de prueba con UUID fijos.
 | Crema | `#FAF7F0` |
 | Gris texto | `#5F6472` |
 
-Tipografías: **Nunito** (wordmark), **Fraunces** (titulares y cifras) y
-**Manrope** (interfaz).
+Lenguaje visual: **cuaderno**. Papel cuadriculado, pegatinas con borde de tinta
+y sombra dura (sin desenfoque), rotulador para lo que importa y monoespaciada
+para las etiquetas. Nada de degradados ni cristalitos.
+
+Tipografías: **Nunito** (wordmark), **Archivo** (titulares e interfaz),
+**Shantell Sans** cursiva (acentos de rotulador) y **Space Mono** (etiquetas).
 
 El sistema está pensado para poder crecer a productos físicos —cuadernos,
 estuches, pegatinas, cajas de bienvenida— sin rehacer nada: el símbolo aguanta

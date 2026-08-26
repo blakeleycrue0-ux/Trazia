@@ -58,7 +58,7 @@ function template(expanded) {
 
       ${entries.length === 0
         ? emptyState({
-            title: 'Todavía no has escrito nada.',
+            title: 'Aún no has escrito',
             text: 'Escribe cómo ha ido el día, lo que sea. Solo lo ves tú.',
             actionLabel: 'Escribir la primera entrada',
             action: 'add-entry',

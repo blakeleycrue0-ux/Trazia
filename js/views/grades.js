@@ -66,7 +66,7 @@ function template() {
       </div>
 
       ${subjects.length === 0 ? emptyState({
-        title: 'Todavía no tienes asignaturas',
+        title: 'Sin asignaturas',
         text: 'Crea una asignatura para poder apuntar notas y calcular tu media.',
         actionLabel: 'Crear asignatura',
         action: 'add-subject',

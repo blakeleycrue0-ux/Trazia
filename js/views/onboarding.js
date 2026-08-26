@@ -105,7 +105,7 @@ export function mountOnboarding(root, { onFinish }) {
   function stepBienvenida() {
     panel.innerHTML = `
       <span class="eyebrow">Bienvenida</span>
-      <h1 class="mt-md">Vamos a preparar tu Trazia.</h1>
+      <h1 class="mt-md">Vamos a preparar <span class="marker">tu Trazia.</span></h1>
       <p class="lede">Solo necesitamos unas cosas para adaptarlo a ti. Se tarda menos de dos minutos y todo se puede cambiar después.</p>`;
     foot.innerHTML = `<button type="button" class="btn btn--primary" data-next>Empezar</button>`;
   }
@@ -113,7 +113,7 @@ export function mountOnboarding(root, { onFinish }) {
   function stepNombre() {
     panel.innerHTML = `
       <span class="eyebrow">Paso 1 de 5</span>
-      <h1 class="mt-md">¿Cómo te llamas?</h1>
+      <h1 class="mt-md">¿Cómo <span class="marker">te llamas?</span></h1>
       <p class="lede">Lo usamos para saludarte y para nada más.</p>
       <div class="onboarding__section">
         <div class="field">
@@ -139,7 +139,7 @@ export function mountOnboarding(root, { onFinish }) {
     const bach = GRADE_LEVELS.filter((level) => level.stage === 'bachillerato');
     panel.innerHTML = `
       <span class="eyebrow">Paso 2 de 5</span>
-      <h1 class="mt-md">¿Qué estudias?</h1>
+      <h1 class="mt-md">¿Qué <span class="marker">estudias?</span></h1>
       <p class="lede">Con esto ajustamos las asignaturas que te sugerimos.</p>
 
       <div class="onboarding__section">
@@ -187,7 +187,7 @@ export function mountOnboarding(root, { onFinish }) {
 
     panel.innerHTML = `
       <span class="eyebrow">Paso 3 de 5</span>
-      <h1 class="mt-md">¿Qué asignaturas tienes?</h1>
+      <h1 class="mt-md">¿Qué <span class="marker">asignaturas</span> tienes?</h1>
       <p class="lede">Toca las que curses o escribe las tuyas. Nada está marcado de antemano.</p>
 
       <div class="onboarding__section">
@@ -301,7 +301,7 @@ export function mountOnboarding(root, { onFinish }) {
 
     panel.innerHTML = `
       <span class="eyebrow">Paso 4 de 5</span>
-      <h1 class="mt-md">¿Cómo es tu horario?</h1>
+      <h1 class="mt-md">¿Cómo es <span class="marker">tu horario?</span></h1>
       <p class="lede">Añade las clases que quieras ahora. No hace falta meterlo todo de una vez.</p>
 
       <div class="onboarding__section">
@@ -364,7 +364,7 @@ export function mountOnboarding(root, { onFinish }) {
   function stepObjetivo() {
     panel.innerHTML = `
       <span class="eyebrow">Paso 5 de 5</span>
-      <h1 class="mt-md">¿Qué nota media quieres conseguir?</h1>
+      <h1 class="mt-md">¿Qué <span class="marker">nota media</span> quieres?</h1>
       <p class="lede">Es una referencia tuya para ver por dónde vas. Puedes cambiarla cuando quieras.</p>
 
       <div class="onboarding__section">
@@ -397,7 +397,7 @@ export function mountOnboarding(root, { onFinish }) {
 
     panel.innerHTML = `
       <span class="eyebrow eyebrow--coral">Todo listo</span>
-      <h1 class="mt-md">Tu Trazia está lista.</h1>
+      <h1 class="mt-md">Tu Trazia <span class="marker">está lista.</span></h1>
       <p class="lede">Esto es lo que hemos guardado. Se puede cambiar entero desde Ajustes.</p>
 
       <dl class="summary-list">

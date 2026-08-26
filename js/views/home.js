@@ -111,7 +111,7 @@ function template() {
             ${blockHead('Hoy', { action: 'go-schedule', actionLabel: 'Ver horario' })}
             ${todayClasses.length === 0
               ? emptyState({
-                  title: 'No hay clases guardadas para hoy',
+                  title: 'Hoy no hay clases',
                   text: 'Añade tu horario y aparecerá aquí cada mañana.',
                   actionLabel: 'Añadir clase',
                   action: 'add-class',
@@ -128,7 +128,7 @@ function template() {
               <div class="list">${overdue.map((item) => eventRow(item, { showDate: true })).join('')}</div>` : ''}
             ${upcoming.length === 0 && overdue.length === 0
               ? emptyState({
-                  title: 'No tienes nada apuntado para los próximos días',
+                  title: 'Nada a la vista',
                   text: 'Cuando añadas un examen o una entrega, aparecerá aquí con su fecha.',
                   actionLabel: 'Añadir entrega',
                   action: 'add-assignment',
@@ -146,7 +146,7 @@ function template() {
             ${blockHead('Hábitos de hoy', { aside: todayHabits.length ? `${habitsDone} de ${todayHabits.length}` : '' })}
             ${store.state.habits.length === 0
               ? emptyState({
-                  title: 'Todavía no tienes hábitos',
+                  title: 'Sin hábitos aún',
                   text: 'Crea uno para empezar.',
                   actionLabel: 'Crear hábito',
                   action: 'add-habit',
@@ -184,7 +184,7 @@ function template() {
                   </span>
                 </div>`
               : emptyState({
-                  title: 'No tienes ninguna cuenta atrás',
+                  title: 'Sin cuentas atrás',
                   text: 'Crea la tuya: un examen, el final de trimestre, lo que quieras.',
                   actionLabel: 'Crear cuenta atrás',
                   action: 'add-countdown',
@@ -216,7 +216,10 @@ function greetingBlock({ name, now, todayClasses, upcoming, next, average, habit
     <section class="greeting">
       <span class="trace-motif" aria-hidden="true"></span>
       <p class="eyebrow greeting__date">${esc(capitalize(formatLongDate(now)))}</p>
-      <h1 class="greeting__title">${esc(greetingFor(now))}${name ? `, ${esc(name)}` : ''}.</h1>
+      <h1 class="greeting__title">
+        ${esc(greetingFor(now))}${name ? ',' : '.'}
+        ${name ? `<span class="marker">${esc(name)}</span>` : ''}
+      </h1>
       <p class="greeting__line">${esc(line)}</p>
       <dl class="greeting__stats">
         <div class="greeting__stat">

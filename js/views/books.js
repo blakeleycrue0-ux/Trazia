@@ -62,7 +62,7 @@ function template() {
 
       ${books.length === 0
         ? emptyState({
-            title: 'Todavía no has añadido ningún libro.',
+            title: 'Sin libros aún',
             text: 'Apunta uno que quieras leer y ve cambiando su estado.',
             actionLabel: 'Añadir libro',
             action: 'add-book',

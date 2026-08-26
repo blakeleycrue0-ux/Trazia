@@ -409,7 +409,7 @@ function template() {
         <div class="block__head"><span class="block__title">Últimas sesiones</span></div>
         ${sessions.length === 0
           ? emptyState({
-              title: 'Todavía no has guardado ninguna sesión',
+              title: 'Sin sesiones aún',
               text: 'Al terminar una sesión de concentración podrás guardarla aquí.',
             })
           : `<div class="list mt-sm">${sessions.map((session) => sessionRow(session)).join('')}</div>`}

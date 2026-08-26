@@ -142,14 +142,14 @@ export function logoMarkup({ size = 30, light = false, className = '' } = {}) {
 /* -------------------------------------------------------------------------- */
 
 export const SUBJECT_COLORS = [
-  { key: 'indigo', label: 'Índigo', value: '#4056b5' },
-  { key: 'lavanda', label: 'Lavanda', value: '#8c7ad6' },
-  { key: 'coral', label: 'Coral', value: '#e8674b' },
-  { key: 'marino', label: 'Marino', value: '#172554' },
-  { key: 'cielo', label: 'Cielo', value: '#3f7fb8' },
-  { key: 'ciruela', label: 'Ciruela', value: '#7b4b8a' },
-  { key: 'frambuesa', label: 'Frambuesa', value: '#c04d78' },
-  { key: 'salvia', label: 'Salvia', value: '#4f7f6f' },
+  { key: 'indigo', label: 'Azul', value: '#574cef' },
+  { key: 'lavanda', label: 'Lavanda', value: '#9473e8' },
+  { key: 'coral', label: 'Naranja', value: '#fe7444' },
+  { key: 'marino', label: 'Tinta', value: '#030826' },
+  { key: 'cielo', label: 'Cielo', value: '#1e7fd4' },
+  { key: 'ciruela', label: 'Ciruela', value: '#8a3fb0' },
+  { key: 'frambuesa', label: 'Frambuesa', value: '#d6336c' },
+  { key: 'salvia', label: 'Verde', value: '#2f8f6b' },
 ];
 
 const COLOR_MAP = new Map(SUBJECT_COLORS.map((c) => [c.key, c.value]));

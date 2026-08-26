@@ -118,7 +118,7 @@ function template() {
         </div>
         ${store.state.subjects.length === 0
           ? emptyState({
-              title: 'No tienes asignaturas',
+              title: 'Sin asignaturas',
               text: 'Añade las que curses para poder usar el horario y las notas.',
               actionLabel: 'Añadir asignatura',
               action: 'add-subject',

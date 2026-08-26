@@ -77,7 +77,7 @@ function template() {
 
       ${habits.length === 0 ? `
         ${emptyState({
-          title: 'Todavía no tienes hábitos.',
+          title: 'Sin hábitos aún',
           text: 'Crea uno para empezar.',
           actionLabel: 'Crear hábito',
           action: 'add-habit',

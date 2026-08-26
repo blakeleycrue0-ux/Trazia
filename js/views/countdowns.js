@@ -54,7 +54,7 @@ function template() {
 
       ${entries.length === 0
         ? emptyState({
-            title: 'Todavía no tienes ninguna cuenta atrás.',
+            title: 'Sin cuentas atrás',
             text: 'Crea la tuya con su nombre y su fecha: un examen, el final de trimestre, lo que quieras.',
             actionLabel: 'Crear cuenta atrás',
             action: 'add-countdown',
