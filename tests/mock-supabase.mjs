@@ -256,6 +256,15 @@ async function handleAuth(req, res, url) {
     return send(res, 200, {});
   }
 
+  if (path === '/settings' && req.method === 'GET') {
+    // Configuracion publica, como la que expone Supabase.
+    return send(res, 200, {
+      external: { email: true, google: false },
+      disable_signup: false,
+      mailer_autoconfirm: AUTOCONFIRM,
+    });
+  }
+
   return authError(res, 404, `Not found: ${path}`, 'not_found');
 }
 
@@ -321,7 +330,19 @@ function pgError(res, error) {
   });
 }
 
+const REST_TABLES = [
+  'profiles', 'subjects', 'schedule_items', 'grades', 'habits', 'habit_completions',
+  'journal_entries', 'books', 'focus_sessions', 'countdowns',
+];
+
 async function handleRest(req, res, url) {
+  if (url.pathname === '/rest/v1/' && req.method === 'GET') {
+    // Esquema simplificado, como el OpenAPI que publica PostgREST.
+    return send(res, 200, {
+      definitions: Object.fromEntries(REST_TABLES.map((table) => [table, { type: 'object' }])),
+    });
+  }
+
   const userId = bearer(req);
   if (!userId) {
     return send(res, 401, { code: 'PGRST301', message: 'JWT expired or missing', details: null, hint: null });

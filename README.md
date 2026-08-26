@@ -22,8 +22,9 @@ como estático en **Netlify**.
    4. [Configurar el correo](#4-configurar-el-correo)
    5. [Google OAuth (opcional)](#5-google-oauth-opcional)
    6. [Variables de entorno](#6-variables-de-entorno)
-   7. [Ejecutar en local](#7-ejecutar-en-local)
-   8. [Desplegar en Netlify](#8-desplegar-en-netlify)
+   7. [Comprobar que el proyecto está listo](#61-comprobar-que-el-proyecto-está-listo)
+   8. [Ejecutar en local](#7-ejecutar-en-local)
+   9. [Desplegar en Netlify](#8-desplegar-en-netlify)
 3. [Estructura del proyecto](#estructura-del-proyecto)
 4. [Base de datos y seguridad](#base-de-datos-y-seguridad)
 5. [Pruebas](#pruebas)
@@ -141,6 +142,18 @@ claves solo se inyectan en el despliegue.
 > debe aparecer en el frontend**; el generador aborta si detecta que se la han
 > pasado.
 
+### 6.1. Comprobar que el proyecto está listo
+
+```bash
+node scripts/check-supabase.mjs
+```
+
+Con la anon key y sin escribir nada, revisa que el registro esté activado, si
+hace falta confirmar el correo, si Google está configurado, que existan las diez
+tablas, que **ninguna sea legible sin iniciar sesión** y que esté publicada
+`delete_account()`. Termina con código de salida distinto de cero si encuentra
+algún problema, así que sirve también en integración continua.
+
 ### 7. Ejecutar en local
 
 ```bash
@@ -218,6 +231,7 @@ tests/                  Pruebas de RLS y de extremo a extremo
 | `node scripts/generate-config.mjs` | Genera `config.js` desde el entorno |
 | `node scripts/generate-icons.mjs` | Regenera los PNG de icono y la imagen Open Graph |
 | `node scripts/vendor-supabase.mjs` | Reempaqueta `vendor/supabase-js.esm.js` |
+| `node scripts/check-supabase.mjs` | Comprueba que tu proyecto de Supabase está listo |
 | `node scripts/lint.mjs` | Importaciones sin usar y acciones sin manejador |
 | `node --experimental-vm-modules scripts/check-syntax.mjs` | Sintaxis de todos los módulos |
 
