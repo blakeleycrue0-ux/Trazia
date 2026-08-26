@@ -1087,6 +1087,13 @@ h3 {
   transition: all var(--fast) var(--ease);
 }
 .chip:hover { border-color: var(--ink); }
+.chip:disabled, .chip[aria-disabled="true"] {
+  border-style: dashed;
+  color: var(--muted-light);
+  background: transparent;
+  cursor: default;
+}
+.chip:disabled:hover, .chip[aria-disabled="true"]:hover { border-color: var(--line-strong); }
 .chip[aria-pressed="true"], .chip.is-active { background: var(--navy); border-color: var(--navy); color: var(--white); }
 
 .segmented {
